@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Find Ronaldo!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Find Christiano Ronaldo, earn money, and get into new teams!">
+    <link rel="icon" href="ronaldo.svg" type="image/svg">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <script src="script.js" defer></script>
+    <span class="displays">
+        Money: <span id="money">0</span>M$<br />
+        Total clicks: <span id="clicks">0</span><br />
+        Clicks per second: <span id="cps" title="Click to reset">0</span><br />
+    </span>
+    <span>
+        Team: <span id="team">No team</span>
+        <button id="offer-btn"></button>
+        <span class="info"><button id="info-btn">?</button></span>
+    </span>
+    <br />
+    <div id="board">
+        <img class="hidden" id="ronaldo" src="ronaldo.svg" alt="Ronaldo" type="image/svg"></img>
+    </div>
+</body>

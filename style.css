@@ -1,0 +1,51 @@
+body {
+    background-color: white;
+    font-family: Impact;
+    font-size: 20px;
+    color: black;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 10px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 10%;
+}
+
+.displays {
+    height: 10vh;
+}
+
+.hidden {
+    opacity: 0;
+    transform: scale(40%);
+}
+
+#board {
+    margin: 0;
+    padding: 0;
+    width: 100% - 10px;
+    height: 60vh;
+    position: relative;
+    background-color: white;
+    border: black 5px solid;
+}
+
+#ronaldo {
+    position: absolute;
+    z-index: 9999;
+}
+
+#cps {
+    cursor: pointer;
+}
+
+#offer-btn {
+    display: none;
+}
