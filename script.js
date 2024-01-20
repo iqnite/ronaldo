@@ -13,27 +13,27 @@ const TEAMS = [
     {
         "name": "Sporting CP",
         "moneyPerFound": 2,
-        "required": 3
+        "required": 30
     },
     {
         "name": "Manchester United",
         "moneyPerFound": 3,
-        "required": 10
+        "required": 100
     },
     {
         "name": "Real Madrid",
         "moneyPerFound": 5,
-        "required": 25
+        "required": 250
     },
     {
         "name": "Juventus",
         "moneyPerFound": 10,
-        "required": 50
+        "required": 500
     },
     {
         "name": "Al Nassr",
         "moneyPerFound": 20,
-        "required": 150
+        "required": 1000
     }
 ];
 const board = document.getElementById("board");
@@ -58,7 +58,7 @@ cpsDisplay.addEventListener("click", () => {
 offerButton.addEventListener("click", () => {
     const newTeam = TEAMS[currentTeam + 1];
     if (money < newTeam.required) return;
-    if (!confirm("Do you want to join " + newTeam.name + "?\nIt will cost you " + newTeam.required + "M$, but you will earn " + newTeam.moneyPerFound + "M$ every time you find Ronaldo.")) return;
+    if (!confirm("Do you want to join " + newTeam.name + "?\nIt will cost you " + newTeam.required + "M$, but you will earn " + newTeam.moneyPerFound * multiplier() + "M$ every time you find Ronaldo.")) return;
     offerButton.style.display = "none";
     money -= newTeam.required;
     moneyDisplay.innerText = money;
@@ -80,7 +80,7 @@ function start() {
 function found(event) {
     if (!ronaldo.classList.contains("hidden")) return;
     long_siuu.play();
-    money += TEAMS[currentTeam].moneyPerFound;
+    money += TEAMS[currentTeam].moneyPerFound * multiplier();
     moneyDisplay.innerText = money;
     clicksDisplay.innerText = clicks;
     ronaldo.classList.remove("hidden");
@@ -97,9 +97,10 @@ function found(event) {
 }
 
 function click(event) {
-    const distance = calcDistance(event.clientX, event.clientY, ronaldo.offsetLeft, ronaldo.offsetTop);
-    const maxDistance = Math.sqrt((board.offsetWidth ** 2) + (board.offsetHeight ** 2));
-    const volume = 1 - (distance / maxDistance);
+    const center = getCenter(ronaldo);
+    const distance = calcDistance(event.clientX, event.clientY, center.x, center.y);
+    const maxDistance = calcDistance(0, 0, board.clientWidth, board.clientHeight);
+    const volume = 1 - mapValue(distance, 0, maxDistance, 0, 1);
 
     siuu.volume = volume;
     siuu.play();
@@ -110,13 +111,29 @@ function click(event) {
     cpsDisplay.innerText = cps;
 }
 
+function mapValue(value, min1, max1, min2, max2) {
+    return min2 + (max2 - min2) * ((value - min1) / (max1 - min1));
+}
+
 function calcDistance(x1, y1, x2, y2) {
     return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
 }
 
+function multiplier() {
+    return Math.floor(calcDistance(0, 0, board.clientWidth, board.clientHeight) / 100);
+}
+
+function getCenter(element) {
+    const rect = element.getBoundingClientRect();
+    return {
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2
+    };
+}
+
 function place() {
-    const x = Math.floor(Math.random() * (board.clientWidth - ronaldo.offsetWidth));
-    const y = Math.floor(Math.random() * (board.clientHeight - ronaldo.offsetHeight));
+    const x = Math.floor(Math.random() * (board.clientWidth - ronaldo.clientWidth + board.style.left));
+    const y = Math.floor(Math.random() * (board.clientHeight - ronaldo.clientHeight + board.style.top));
     ronaldo.style.left = x + "px";
     ronaldo.style.top = y + "px";
 }
