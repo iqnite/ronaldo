@@ -48,6 +48,7 @@ const clicksDisplay = document.getElementById("clicks");
 const teamDisplay = document.getElementById("team");
 const cpsDisplay = document.getElementById("cps");
 const infoButton = document.getElementById("info-btn");
+const fullscreenButton = document.getElementById("fullscreen-btn");
 const offerButton = document.getElementById("offer-btn");
 const siuu = new Audio("siuu.wav");
 const long_siuu = new Audio("long_siuu.wav");
@@ -55,6 +56,13 @@ const long_siuu = new Audio("long_siuu.wav");
 ronaldo.ondragstart = () => false;
 infoButton.addEventListener("click", () => {
     alert("The goal is to find Ronaldo. The closer you click, the louder the Siuuu becomes.\nGame inspired by Sium Clicker 23 by Crazy_Tomatoes.");
+});
+fullscreenButton.addEventListener("click", () => {
+    if (document.fullscreenElement) {
+        document.exitFullscreen();
+    } else {
+        document.documentElement.requestFullscreen();
+    }
 });
 cpsDisplay.addEventListener("click", () => {
     startTime = Date.now();
