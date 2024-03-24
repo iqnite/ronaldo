@@ -31,9 +31,14 @@ const TEAMS = [
         "required": 500
     },
     {
+        "name": "Manchester United",
+        "moneyPerFound": 3,
+        "required": 1000
+    },
+    {
         "name": "Al Nassr",
         "moneyPerFound": 20,
-        "required": 1000
+        "required": 5000
     }
 ];
 const board = document.getElementById("board");
